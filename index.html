@@ -596,6 +596,45 @@ footer{background:#100f0d;color:rgba(255,255,255,.6);padding:80px 0 30px;}
 @media (max-width:600px){
   .legal-panel{padding:40px 24px 48px;}
 }
+/* ---------- BANNIÈRE "ILS NOUS ONT FAIT CONFIANCE" ---------- */
+.trust-banner{
+  background:var(--card);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:28px 0 32px;
+  overflow:hidden;
+}
+.trust-banner-title{
+  text-align:center;
+  font-size:11px;font-weight:700;letter-spacing:.16em;
+  color:var(--stone);text-transform:uppercase;
+  margin-bottom:20px;
+}
+.trust-track-wrap{
+  width:100%;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);
+}
+.trust-track{
+  display:flex;align-items:center;width:max-content;
+  will-change:transform;cursor:grab;
+}
+.trust-track.dragging{cursor:grabbing;user-select:none;}
+.trust-logo{
+  flex:0 0 auto;
+  width:130px;height:34px;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 42px;
+}
+.trust-logo img{
+  height:100%;width:100%;object-fit:contain;display:block;
+  -webkit-user-drag:none;user-select:none;pointer-events:none;
+}
+@media(max-width:760px){
+  .trust-banner{padding:22px 0 26px;}
+  .trust-banner-title{margin-bottom:16px;font-size:10px;}
+  .trust-logo{width:90px;height:26px;margin:0 22px;}
+}
 </style>
 </head>
 <body>
@@ -676,6 +715,20 @@ footer{background:#100f0d;color:rgba(255,255,255,.6);padding:80px 0 30px;}
     </div>
   </div>
   <a href="#apropos" class="scroll-cue"><span>Découvrir</span><span class="dot"></span></a>
+</section>
+
+<section class="trust-banner" aria-label="Ils nous ont fait confiance">
+  <p class="trust-banner-title">Ils nous ont fait confiance</p>
+  <div class="trust-track-wrap">
+    <div class="trust-track" id="trustTrack">
+      <div class="trust-logo"><img src="https://res.cloudinary.com/dkm8cbylh/image/upload/v1788181674/logo-clopinette-400px_krzhuv.png" alt="Clopinette" loading="lazy"></div>
+      <div class="trust-logo"><img src="https://res.cloudinary.com/dkm8cbylh/image/upload/v1788181664/64ad41c31cd92_images_medium_bcteaq.png" alt="Nike" loading="lazy"></div>
+      <div class="trust-logo"><img src="https://res.cloudinary.com/dkm8cbylh/image/upload/v1788181656/580b57fcd9996e24bc43c4f3_koo8hl.png" alt="Récréacour" loading="lazy"></div>
+      <div class="trust-logo" aria-hidden="true"><img src="https://res.cloudinary.com/dkm8cbylh/image/upload/v1788181674/logo-clopinette-400px_krzhuv.png" alt="" loading="lazy"></div>
+      <div class="trust-logo" aria-hidden="true"><img src="https://res.cloudinary.com/dkm8cbylh/image/upload/v1788181664/64ad41c31cd92_images_medium_bcteaq.png" alt="" loading="lazy"></div>
+      <div class="trust-logo" aria-hidden="true"><img src="https://res.cloudinary.com/dkm8cbylh/image/upload/v1788181656/580b57fcd9996e24bc43c4f3_koo8hl.png" alt="" loading="lazy"></div>
+    </div>
+  </div>
 </section>
 
 <section id="apropos">
@@ -1307,6 +1360,10 @@ var workImages = workItems
   .map(function(item){ return item.querySelector('img').src; });
 
 var workMarquee = initMarquee(workTrack, window.innerWidth < 760 ? 24 : 34);
+
+/* ---------- BANNIÈRE "ILS NOUS ONT FAIT CONFIANCE" ---------- */
+var trustTrack = document.getElementById('trustTrack');
+if(trustTrack){ initMarquee(trustTrack, window.innerWidth < 760 ? 12 : 18); }
 
 var lightbox = document.getElementById('lightbox');
 var lbImg = document.getElementById('lbImg');
