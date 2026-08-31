@@ -400,6 +400,63 @@ section{padding:120px 0;}
   .work-item:hover img{transform:none;opacity:.94;}
 }
 
+/* ---------- GALERIE VIDÉO ---------- */
+.video-note{font-size:14px;color:var(--stone);max-width:46ch;margin-top:10px;}
+.video-carousel{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:32px;max-width:740px;margin:0 auto;
+}
+.video-item{
+  position:relative;overflow:hidden;cursor:pointer;background:#000;border-radius:4px;
+  aspect-ratio:9/16;transition:transform .6s cubic-bezier(.22,.61,.36,1), box-shadow .6s ease;
+}
+.video-item video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;transition:transform 1.1s cubic-bezier(.22,.61,.36,1), opacity .5s ease;opacity:.96;}
+.video-item:hover{transform:translateY(-8px);box-shadow:0 28px 56px -20px rgba(0,0,0,.45);}
+.video-item:hover video{transform:scale(1.05);opacity:1;}
+.video-item::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg, rgba(0,0,0,.5), transparent 45%);opacity:.55;transition:opacity .4s ease;pointer-events:none;}
+.video-item:hover::after{opacity:.78;}
+.video-item::before{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,0);transition:border-color .4s ease;pointer-events:none;border-radius:4px;}
+.video-item:hover::before{border-color:rgba(255,255,255,.2);}
+.video-expand{
+  position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;
+  background:rgba(23,23,26,.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;
+  color:var(--white);opacity:0;transform:translateY(-6px);transition:opacity .35s ease, transform .35s ease;pointer-events:none;
+}
+.video-item:hover .video-expand{opacity:1;transform:translateY(0);}
+.video-item.reveal:nth-child(2){transition-delay:.12s;}
+@media (hover:none){
+  .video-item:hover{transform:none;box-shadow:none;}
+  .video-item:hover video{transform:none;opacity:.96;}
+  .video-expand{opacity:1;transform:none;background:rgba(23,23,26,.4);}
+}
+
+.video-lightbox{
+  position:fixed;inset:0;background:rgba(10,9,7,.97);z-index:2000;
+  display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;
+  transition:opacity .5s cubic-bezier(.22,.61,.36,1), visibility .5s;padding:40px;
+}
+.video-lightbox.open{opacity:1;visibility:visible;backdrop-filter:blur(6px);}
+.video-lightbox video{
+  max-width:min(420px,88vw);width:100%;aspect-ratio:9/16;max-height:86vh;object-fit:cover;border-radius:6px;
+  transform:scale(.92) translateY(14px);opacity:0;background:#000;
+  transition:transform .55s cubic-bezier(.16,1,.3,1), opacity .5s ease;
+  box-shadow:0 40px 90px -20px rgba(0,0,0,.6);
+}
+.video-lightbox.open video{transform:scale(1) translateY(0);opacity:1;}
+.video-lightbox-close{position:absolute;top:28px;right:32px;color:var(--white);font-size:28px;font-weight:300;transition:opacity .3s ease, transform .3s ease;z-index:2;}
+.video-lightbox-close:hover{opacity:.7;transform:rotate(90deg);}
+.video-mute{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.1);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;color:var(--white);border:1px solid rgba(255,255,255,.2);
+  transition:background .3s ease;
+}
+.video-mute:hover{background:rgba(255,255,255,.18);}
+@media (max-width:760px){
+  .video-carousel{gap:16px;max-width:100%;}
+  .video-lightbox video{max-width:92vw;}
+}
+
 /* ---------- POURQUOI ---------- */
 .why-section{background:var(--ink);color:var(--white);}
 .why-section .eyebrow{color:#e7b58f;}
@@ -820,6 +877,40 @@ footer{background:#100f0d;color:rgba(255,255,255,.6);padding:80px 0 30px;}
   </div>
 </section>
 
+<section id="galerie-video">
+  <div class="wrap">
+    <div class="work-head reveal">
+      <div>
+        <span class="eyebrow">Portfolio vidéo</span>
+        <h2>Nos réalisations en vidéo</h2>
+      </div>
+      <p class="video-note">Un aperçu en mouvement de nos chantiers, pour découvrir le savoir-faire de 26 RÉNOV.</p>
+    </div>
+    <div class="video-carousel">
+      <!-- Vidéo 1 — remplacer les URLs des deux <source> ci-dessous pour changer la vidéo -->
+      <div class="video-item reveal">
+        <video class="video-thumb" muted loop playsinline autoplay preload="metadata" aria-label="Réalisation 26 RÉNOV en vidéo — 1">
+          <source src="https://res.cloudinary.com/dkm8cbylh/video/upload/v1788182998/0831_gbbrmp.mp4" type="video/mp4">
+          <source src="https://res.cloudinary.com/dkm8cbylh/video/upload/v1788182998/0831_gbbrmp.mov" type="video/quicktime">
+        </video>
+        <span class="video-expand" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        </span>
+      </div>
+      <!-- Vidéo 2 — remplacer les URLs des deux <source> ci-dessous pour changer la vidéo -->
+      <div class="video-item reveal">
+        <video class="video-thumb" muted loop playsinline autoplay preload="metadata" aria-label="Réalisation 26 RÉNOV en vidéo — 2">
+          <source src="https://res.cloudinary.com/dkm8cbylh/video/upload/v1788183190/0831_1_hblrte.mp4" type="video/mp4">
+          <source src="https://res.cloudinary.com/dkm8cbylh/video/upload/v1788183190/0831_1_hblrte.mov" type="video/quicktime">
+        </video>
+        <span class="video-expand" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="why-section" id="pourquoi">
   <div class="wrap">
     <div class="reveal">
@@ -1181,6 +1272,14 @@ footer{background:#100f0d;color:rgba(255,255,255,.6);padding:80px 0 30px;}
   <span class="lightbox-nav lb-next" id="lbNext">&#8250;</span>
 </div>
 
+<div class="video-lightbox" id="videoLightbox">
+  <span class="video-lightbox-close" id="vlbClose">&times;</span>
+  <video id="vlbVideo" playsinline loop></video>
+  <span class="video-mute" id="vlbMute" title="Activer / couper le son" role="button" tabindex="0">
+    <svg id="vlbMuteIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M19 12c0-1.9-.8-3.6-2-4.9"/><path d="M22 12c0-3.2-1.4-6-3.5-8"/></svg>
+  </span>
+</div>
+
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -1388,6 +1487,73 @@ document.addEventListener('keydown', function(e){
   if(e.key === 'Escape') closeLightbox();
   if(e.key === 'ArrowRight') openLightbox(currentIndex+1);
   if(e.key === 'ArrowLeft') openLightbox(currentIndex-1);
+});
+
+/* ---------- GALERIE VIDÉO ---------- */
+var videoThumbs = Array.from(document.querySelectorAll('.video-thumb'));
+videoThumbs.forEach(function(v){
+  v.addEventListener('canplaythrough', function(){ v.play().catch(function(){}); });
+  v.load();
+});
+
+/* met en pause les vidéos hors du champ de vision, les relance en entrant dans le viewport */
+var vThumbIO = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    var v = entry.target;
+    if(entry.isIntersecting){ v.play().catch(function(){}); }
+    else { v.pause(); }
+  });
+}, {threshold:.25});
+videoThumbs.forEach(function(v){ vThumbIO.observe(v); });
+
+var videoLightbox = document.getElementById('videoLightbox');
+var vlbVideo = document.getElementById('vlbVideo');
+var vlbMute = document.getElementById('vlbMute');
+var vlbMuteIcon = document.getElementById('vlbMuteIcon');
+var videoItems = Array.from(document.querySelectorAll('.video-item'));
+var videoScrollLockY = 0;
+
+function updateMuteIcon(){
+  vlbMuteIcon.innerHTML = vlbVideo.muted
+    ? '<path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>'
+    : '<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M19 12c0-1.9-.8-3.6-2-4.9"/><path d="M22 12c0-3.2-1.4-6-3.5-8"/>';
+}
+
+function openVideoLightbox(item){
+  var thumb = item.querySelector('.video-thumb');
+  vlbVideo.innerHTML = thumb.innerHTML;
+  vlbVideo.muted = false;
+  videoScrollLockY = window.scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = (-videoScrollLockY) + 'px';
+  document.body.style.width = '100%';
+  videoLightbox.classList.add('open');
+  vlbVideo.load();
+  vlbVideo.play().catch(function(){ vlbVideo.muted = true; updateMuteIcon(); vlbVideo.play().catch(function(){}); });
+  updateMuteIcon();
+}
+function closeVideoLightbox(){
+  videoLightbox.classList.remove('open');
+  vlbVideo.pause();
+  vlbVideo.innerHTML = '';
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.width = '';
+  window.scrollTo(0, videoScrollLockY);
+}
+videoItems.forEach(function(item){
+  item.addEventListener('click', function(){ openVideoLightbox(item); });
+});
+document.getElementById('vlbClose').addEventListener('click', closeVideoLightbox);
+videoLightbox.addEventListener('click', function(e){ if(e.target === videoLightbox){ closeVideoLightbox(); } });
+vlbMute.addEventListener('click', function(e){
+  e.stopPropagation();
+  vlbVideo.muted = !vlbVideo.muted;
+  updateMuteIcon();
+});
+document.addEventListener('keydown', function(e){
+  if(!videoLightbox.classList.contains('open')) return;
+  if(e.key === 'Escape') closeVideoLightbox();
 });
 
 /* ---------- CARROUSEL AVIS GOOGLE ---------- */
